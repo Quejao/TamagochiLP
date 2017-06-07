@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=yes, width=device-width">
+        <title>TamagochiLP</title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+    </head>
+    <body>
+		<div class="app"> 
+			<script type="text/javascript" src="js/tamagochi.js"></script>
+			<center>
+				<h1>Tamagochi LP</h1>
+			</center>
+				<div id='tabela' align='center'>
+					<table border="2" width="225px">
+						<tr>
+							<td> Happy</td>
+							<td> Hunger</td>
+							<td> Health</td>
+							<td> State</td>
+						</tr>
+						<tr>
+							<td id="happy">100</td>
+							<td id="hunger">100</td>
+							<td id="health">100</td>
+							<td id="state">Normal</td>
+						</tr>
+					</table>
+				</div>
+			<div>
+				<img src="img/tamagochi.gif" alt="tamagochi gif" align="center" width="225px" height="225px">
+			</div>
+			<div width="225px" align='center'>
+				<input type="button" class="button" onclick="Feed();" name="f" value="Alimentar"/> 
+				<input type="button" class="button" onclick="Clean();" name="c1" value="Limpar"/> 
+				<input type="button" class="button" onclick="Play();" name="p" value="Brincar"/> 
+				<input type="button" class="button" onclick="Cure();" name="c2" value="Curar"/> 
+				<input type="button" class="button" onclick="Lights();" name="l" value="Apagar Luz"/> 
+				<input type="button" class="button" onclick="Reset();" name="r" value="Reset"/> 
+			</div>
+		</div>
+	</body>
+</html>
