@@ -33,12 +33,23 @@ function Reset(){
 
 function updateStatus(){
 	if(state != 'dead'){
-		if(happy >= 40 || health >= 40 || hunger >= 40) state = 'normal';
-		if (happy < 40) state = 'sad';
-		if (health < 40) state = 'sick';
-		if(hunger < 40) state = 'hungry';
-		if (happy <= 0 || health <= 0 || hunger <= 0)
+		if((happy >= 40 || health >= 40 || hunger >= 40)&&(state != 'normal')){
+			state = 'normal';
+			document.getElementById('img').src = "img/tamagochi.gif";
+		}
+		if((happy < 40)&&(state != 'sad')){ 
+			state = 'sad';
+		}
+		if((health < 40)&&(state != 'sick')){ 
+			state = 'sick';
+			document.getElementById('img').src = "img/sujo.gif";
+		}
+		if((hunger < 40)&&(state != 'hungry')){
+			state = 'hungry';
+		}
+		if (happy <= 0 || health <= 0 || hunger <= 0){
 			state = 'dead';
+		}
 	}
 }
 
@@ -52,9 +63,6 @@ function Feed(){
 function Clean(){
 	if(state != 'dead'){
 		health += 20;
-		if(state === 'dirty'){
-			state = 'normal';
-		}
 		updateStatus();
 	}
 }
@@ -63,6 +71,7 @@ function Play(){
 	if(state != 'dead'){
 		happy += 10;
 		hunger -= 20;
+		health -=20
 		updateStatus();
 	}
 }

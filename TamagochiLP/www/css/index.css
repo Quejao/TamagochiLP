@@ -49,10 +49,10 @@ body {
 .app {
     background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
     position:absolute;             /* position in the center of the screen */
-    left:50%;
+    left:47%;
     top:15%;
     height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
+    width:247px;                   /* text area width */
     text-align:center;
     padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
     margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
@@ -115,14 +115,31 @@ h1 {
 }
 
 .button {
-    background-color: #e7e7e7; color: black;
-    border: none;
-    color: black;
-    padding: 10px 13px;
+    background-color: #e7e7e7; 
+	color: black;
+    padding: 12px 16.3px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 12px;
 	border-radius: 4px;
 	border: 2px solid #555555;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: center;
+	font-size: 12px;
+    padding: 6px;
+}
+
+tr:nth-child(even){background-color: #e7e7e7}
+
+th {
+    background-color: #f2f2f2;
+    color: black;
 }
