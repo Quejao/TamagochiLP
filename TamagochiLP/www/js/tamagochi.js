@@ -28,47 +28,55 @@ function Reset(){
 	health = 101;
 	ageString = 'baby'
 	state = 'normal';
+	document.getElementById('img').src = "img/normal.gif";
 	localSave();
 }
 
 function updateStatus(){
-	if(state != 'dead'){
-		if((happy >= 40 || health >= 40 || hunger >= 40)&&(state != 'normal')){
-			state = 'normal';
-			document.getElementById('img').src = "img/tamagochi.gif";
-		}
-		if((happy < 40)&&(state != 'sad')){ 
-			state = 'sad';
-		}
-		if((health < 40)&&(state != 'sick')){ 
-			state = 'sick';
-			document.getElementById('img').src = "img/sujo.gif";
-		}
-		if((hunger < 40)&&(state != 'hungry')){
-			state = 'hungry';
-		}
+	if(state != 'dead' && state != 'sleeping'){
 		if (happy <= 0 || health <= 0 || hunger <= 0){
 			state = 'dead';
+			document.getElementById('img').src = "img/dead.png";
+		}
+		else if((tired >=100) && (state != 'tired')){
+			state = 'tired';
+			document.getElementById('img').src = "img/tired.gif";
+		}
+		else if((happy >= 40 && health >= 40 && hunger >= 40)&&(state != 'normal')){
+			state = 'normal';
+			document.getElementById('img').src = "img/normal.gif";
+		}
+		else if((happy < 40)&&(state != 'sad')){ 
+			state = 'sad';
+			document.getElementById('img').src = "img/sad.gif";
+		}
+		else if((health < 40)&&(state != 'sick')){ 
+			state = 'sick';
+			document.getElementById('img').src = "img/sick.gif";
+		}
+		else if((hunger < 40)&&(state != 'hungry')){
+			state = 'hungry';
+			document.getElementById('img').src = "img/hungry.gif";
 		}
 	}
 }
 
 function Feed(){
-	if(state != 'dead'){
+	if(state != 'dead' && state != 'sleeping'){
 		hunger += 15;
 		updateStatus();
 	}
 }
 
 function Clean(){
-	if(state != 'dead'){
+	if(state != 'dead' && state != 'sleeping'){
 		health += 20;
 		updateStatus();
 	}
 }
 	
 function Play(){
-	if(state != 'dead'){
+	if(state != 'dead' && state != 'sleeping'){
 		happy += 10;
 		hunger -= 20;
 		health -=20
@@ -77,14 +85,20 @@ function Play(){
 }
 
 function Cure(){
-	if(state != 'dead'){
+	if(state != 'dead' && state != 'sleeping'){
 		health += 10;
 		updateStatus();
 	}
 }
 
 function Lights(){
-	lights = false;
+	if(state != 'sleeping'){
+		state = 'sleeping';
+		document.getElementById('img').src = "img/sleeping.gif";
+	}else{
+		state = ' ';
+		updateStatus();
+	}
 }
 	
 function Notification(){
@@ -99,6 +113,7 @@ function update(deltaTime) {
 		happy -= happyRate * deltaTime;
 		hunger -= hungerRate * deltaTime;
 		health -= healthRate * deltaTime;
+		tired++;
 		// atualiza estados
 		updateStatus();
 	}
@@ -107,14 +122,16 @@ function update(deltaTime) {
 		happy -= happyRate * deltaTime * 1.5;
 		hunger -= hungerRate * deltaTime;
 		health -= healthRate * deltaTime * 1.5;
+		tired++;
 		// atualiza estados
 		updateStatus();
 	}
 	if (state == 'sick') {
 		//atualiza itens de status (versão "muito simples")
 		happy -= happyRate * deltaTime;
-		hunger -= hungerRate * deltaTime * .5;
+		hunger -= hungerRate * deltaTime * 1.2;
 		health -= healthRate * deltaTime * 1.5;
+		tired++;
 		// atualiza estados
 		updateStatus();
 	}
@@ -123,8 +140,24 @@ function update(deltaTime) {
 		happy -= happyRate * deltaTime * 1.5;
 		hunger -= hungerRate * deltaTime * 1.5;
 		health -= healthRate * deltaTime * 1.5;
+		tired++;
 		// atualiza estados
 		updateStatus();
+	}
+	if (state == 'tired') {
+		//atualiza itens de status (versão "muito simples")
+		happy -= happyRate * deltaTime * 1.8;
+		hunger -= hungerRate * deltaTime * 1.5;
+		health -= healthRate * deltaTime * 2;
+		tired++;
+		// atualiza estados
+		updateStatus();
+	}
+	if(state == 'sleeping'){
+		happy -= happyRate * deltaTime;
+		hunger -= hungerRate * deltaTime;
+		health -= healthRate * deltaTime;
+		tired--;
 	}
 	updateScreen();
 	localSave();
@@ -159,9 +192,10 @@ var health = 101;
 var happyRate = .0001;
 var hungerRate = .00015;
 var healthRate = .00005;
-var ageRate = 1;
+var ageRate = .5;
 var ageString = 'baby'
 var state = 'normal';
+var tired = 0;
 
 init();
 
