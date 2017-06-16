@@ -7,7 +7,8 @@ function localSave(){
 	localStorage.setItem("hunger",hunger);
 	localStorage.setItem("health",health);
 	localStorage.setItem("state",state);	
-	localStorage.setItem("age",age);	
+	localStorage.setItem("age",age);
+	localStorage.setItem("tired",tired);
 	localStorage.setItem("date",new Date.getTime());
 }
 
@@ -17,6 +18,7 @@ function onLoad(){
 	health = localStorage.getItem("health");
 	state = localStorage.getItem("state");
 	age = localStorage.getItem("age");
+	tired = localStorage.getItem("tired");
 	deltaTime = new Date.getTime() - localStorage.getItem("date");
 	updateScreen();
 }
@@ -38,25 +40,95 @@ function updateStatus(){
 			state = 'dead';
 			document.getElementById('img').src = "img/dead.png";
 		}
-		else if((tired >=100) && (state != 'tired')){
-			state = 'tired';
-			document.getElementById('img').src = "img/tired.gif";
+		else if(state === 'normal'){
+			if((tired >=1000) && (state != 'tired')){
+				state = 'tired';
+				document.getElementById('img').src = "img/tired.gif";
+			}
+			else if((happy < 40)&&(state != 'sad')){ 
+				state = 'sad';
+				document.getElementById('img').src = "img/sad.gif";
+			}
+			else if((health < 40)&&(state != 'sick')){ 
+				state = 'sick';
+				document.getElementById('img').src = "img/sick.gif";
+			}
+			else if((hunger < 40)&&(state != 'hungry')){
+				state = 'hungry';
+				document.getElementById('img').src = "img/hungry.gif";
+			}
 		}
-		else if((happy >= 40 && health >= 40 && hunger >= 40)&&(state != 'normal')){
-			state = 'normal';
-			document.getElementById('img').src = "img/normal.gif";
+		else if(state === 'tired'){
+			if((happy >= 40 && health >= 40 && hunger >= 40)&&(state != 'normal')){
+				state = 'normal';
+				document.getElementById('img').src = "img/normal.gif";
+			}
+			else if((happy < 40)&&(state != 'sad')){ 
+				state = 'sad';
+				document.getElementById('img').src = "img/sad.gif";
+			}
+			else if((health < 40)&&(state != 'sick')){ 
+				state = 'sick';
+				document.getElementById('img').src = "img/sick.gif";
+			}
+			else if((hunger < 40)&&(state != 'hungry')){
+				state = 'hungry';
+				document.getElementById('img').src = "img/hungry.gif";
+			}
 		}
-		else if((happy < 40)&&(state != 'sad')){ 
-			state = 'sad';
-			document.getElementById('img').src = "img/sad.gif";
+		else if(state === 'sad'){
+			if((happy >= 40 && health >= 40 && hunger >= 40)&&(state != 'normal')){
+				state = 'normal';
+				document.getElementById('img').src = "img/normal.gif";
+			}
+			else if((tired >=100) && (state != 'tired')){
+				state = 'tired';
+				document.getElementById('img').src = "img/tired.gif";
+			}
+			else if((health < 40)&&(state != 'sick')){ 
+				state = 'sick';
+				document.getElementById('img').src = "img/sick.gif";
+			}
+			else if((hunger < 40)&&(state != 'hungry')){
+				state = 'hungry';
+				document.getElementById('img').src = "img/hungry.gif";
+			}
 		}
-		else if((health < 40)&&(state != 'sick')){ 
-			state = 'sick';
-			document.getElementById('img').src = "img/sick.gif";
+		else if(state === 'sick'){
+			if((happy >= 40 && health >= 40 && hunger >= 40)&&(state != 'normal')){
+				state = 'normal';
+				document.getElementById('img').src = "img/normal.gif";
+			}
+			else if((happy < 40)&&(state != 'sad')){ 
+				state = 'sad';
+				document.getElementById('img').src = "img/sad.gif";
+			}
+			else if((tired >=100) && (state != 'tired')){
+				state = 'tired';
+				document.getElementById('img').src = "img/tired.gif";
+			}
+			else if((hunger < 40)&&(state != 'hungry')){
+				state = 'hungry';
+				document.getElementById('img').src = "img/hungry.gif";
+			}
 		}
-		else if((hunger < 40)&&(state != 'hungry')){
-			state = 'hungry';
-			document.getElementById('img').src = "img/hungry.gif";
+		else if(state === 'hungry'){
+			if((happy >= 40 && health >= 40 && hunger >= 40)&&(state != 'normal')){
+				state = 'normal';
+				document.getElementById('img').src = "img/normal.gif";
+			}
+			else if((happy < 40)&&(state != 'sad')){ 
+				state = 'sad';
+				document.getElementById('img').src = "img/sad.gif";
+			}
+			else if((tired >=100) && (state != 'tired')){
+				state = 'tired';
+				document.getElementById('img').src = "img/tired.gif";
+			}
+			else if((health < 40)&&(state != 'sick')){ 
+				state = 'sick';
+				document.getElementById('img').src = "img/sick.gif";
+			}
 		}
 	}
 }
@@ -93,11 +165,12 @@ function Cure(){
 
 function Lights(){
 	if(state != 'sleeping'){
+		aux = state;
 		state = 'sleeping';
 		document.getElementById('img').src = "img/sleeping.gif";
 	}else{
-		state = ' ';
-		updateStatus();
+		state = aux;
+		document.getElementById('img').src = "img/"+ aux +".gif";
 	}
 }
 	
@@ -196,6 +269,7 @@ var ageRate = .5;
 var ageString = 'baby'
 var state = 'normal';
 var tired = 0;
+var aux;
 
 init();
 
