@@ -1,5 +1,6 @@
 function init(){
  document.addEventListener("deviceready", onLoad, false);
+ document.addEventListener("backbutton", localSave, false);
 }
 
 function localSave(){
@@ -24,7 +25,7 @@ function onLoad(){
 	document.getElementById('img').src = localStorage.getItem("gif");
 	aux = localStorage.getItem("aux");
 	deltaTime = new Date.getTime() - localStorage.getItem("date");
-	updateScreen();
+	update(deltaTime);
 }
 
 function Reset(){
@@ -324,7 +325,7 @@ function updateScreen(){
 		happyRate = .00005;
 		hungerRate = .00003;
 		healthRate = .00002;
-	}else{ 
+	}else if(age>499){ 
 		ageString = 'old';
 		happyRate = .00002;
 		hungerRate = .000015;
