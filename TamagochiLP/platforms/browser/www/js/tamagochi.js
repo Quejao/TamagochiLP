@@ -102,12 +102,15 @@
 		ageString = 'baby'
 		state = 'normal';
 		document.getElementById('img').src = 'img/normal.gif';
+		document.getElementById('background').muted = false;
 		localSave();
 	}
 
 	function updateStatus(){
 		if(state != 'dead' && state != 'sleeping'){
 			if (happy <= 0 || health <= 0 || hunger <= 0){
+				document.getElementById('background').muted = true;
+				document.getElementById('death').autoplay = true;
 				state = 'dead';
 				document.getElementById('img').src = 'img/dead.png';
 			}
@@ -288,10 +291,6 @@
 			state = aux;
 			document.getElementById('img').src = 'img/'+ aux +'.gif';
 		}
-	}
-		
-	function Notification(){
-		
 	}
 
 	function update(deltaTime) {
