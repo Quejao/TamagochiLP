@@ -283,11 +283,11 @@
 	}
 
 	function Lights(){
-		if(state != 'sleeping'){
+		if(state != 'sleeping' && state != 'dead'){
 			aux = state;
 			state = 'sleeping';
 			document.getElementById('img').src = 'img/sleeping.gif';
-		}else{
+		}else if(state != 'dead') {
 			state = aux;
 			document.getElementById('img').src = 'img/'+ aux +'.gif';
 		}
